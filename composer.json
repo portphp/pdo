@@ -1,0 +1,48 @@
+{
+    "name": "portphp/pdo-adapter",
+    "description": "PDO adapter for Port",
+    "license": "MIT",
+    "homepage": "https://github.com/portphp",
+    "authors": [
+        {
+            "name": "David de Boer",
+            "email": "david@ddeboer.nl"
+        },
+        {
+            "name": "Markus Bachmann",
+            "email": "markus.bachmann@bachi.biz"
+        },
+        {
+            "name": "Community contributors",
+            "homepage": "https://github.com/portphp/dbal-adapter/graphs/contributors"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/portphp/portphp/issues",
+        "source": "https://github.com/portphp/dbal-adapter",
+        "docs": "https://docs.portphp.org"
+    },
+    "require": {
+        "php": ">=5.4.0",
+        "portphp/portphp": "1.0.x-dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Port\\Pdo\\": "src/"
+        }
+    },
+    "require-dev": {
+        "ext-sqlite3": "*",
+        "phpunit/phpunit": "^4.0"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Port\\Pdo\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
