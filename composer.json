@@ -1,5 +1,5 @@
 {
-    "name": "portphp/pdo-adapter",
+    "name": "portphp/pdo",
     "description": "PDO adapter for Port",
     "license": "MIT",
     "homepage": "https://github.com/portphp",
