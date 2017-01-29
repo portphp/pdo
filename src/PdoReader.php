@@ -49,23 +49,6 @@ class PdoReader implements CountableReader
     /**
      * {@inheritdoc}
      */
-    public function getFields()
-    {
-        if ($this->statement->execute()) {
-            // Statement executed successfully
-            // Grab the first row to find keys
-            $row = $this->statement->fetch(\PDO::FETCH_ASSOC);
-            // Return field keys, or empty array no rows remain
-            return array_keys($row ? $row : []);
-        } else {
-            // If the statement errors return empty
-            return [];
-        }
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function current()
     {
         return current($this->data);
