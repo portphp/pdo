@@ -1,9 +1,9 @@
 # Port PDO adapter
 
-[![Latest Version](https://img.shields.io/github/release/portphp/pdo-adapter.svg?style=flat-square)](https://github.com/portphp/pdo-adapter/releases)
-[![Build Status](https://travis-ci.org/portphp/pdo-adapter.svg)](https://travis-ci.org/portphp/pdo-adapter)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/portphp/pdo-adapter/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/portphp/pdo-adapter/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/portphp/pdo-adapter/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/portphp/pdo-adapter/?branch=master)
+[![Latest Version](https://img.shields.io/github/release/portphp/pdo.svg?style=flat-square)](https://github.com/portphp/pdo/releases)
+[![Build Status](https://travis-ci.org/portphp/pdo.svg)](https://travis-ci.org/portphp/pdo)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/portphp/pdo/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/portphp/pdo/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/portphp/pdo/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/portphp/pdo/?branch=master)
 
 PDO adapter for [Port](https://github.com/portphp).
 
@@ -31,7 +31,7 @@ Please report issues and request features at https://github.com/portphp/portphp/
 ## Contributing
 
 Contributions are very welcome. Please see [CONTRIBUTING.md](CONTRIBUTING.md) for
-details. Thanks to [everyone who has contributed](https://github.com/portphp/pdo-adapter/graphs/contributors)
+details. Thanks to [everyone who has contributed](https://github.com/portphp/pdo/graphs/contributors)
 already.
 
 ## Security
