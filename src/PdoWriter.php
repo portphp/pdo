@@ -101,6 +101,7 @@ class PdoWriter implements Writer, FlushableWriter
 
             $this->pdo->commit();
         } catch (\PDOException $e) {
+            $this->pdo->rollBack();
             throw new WriterException('Failed to write to database', null, $e);
         }
     }
