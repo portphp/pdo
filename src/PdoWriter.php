@@ -86,7 +86,7 @@ class PdoWriter implements Writer, FlushableWriter
     {
         $this->flush();
 
-        return $this;
+        
     }
 
     public function flush(): void
