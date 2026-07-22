@@ -4,7 +4,7 @@ namespace Port\Tests\Writer;
 
 use Port\Pdo\PdoWriter;
 
-class PdoWriterTest extends \PHPUnit_Framework_TestCase
+class PdoWriterTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var \PDO

@@ -4,7 +4,7 @@ namespace Port\Tests\Reader;
 
 use Port\Pdo\PdoReader;
 
-class PdoReaderTest extends \PHPUnit_Framework_TestCase
+class PdoReaderTest extends \PHPUnit\Framework\TestCase
 {
 	public function testCount()
 	{
