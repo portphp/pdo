@@ -75,7 +75,7 @@ class PdoWriter implements Writer, FlushableWriter
                     substr(str_repeat('?,', count($item)), 0, -1)
                 ));
             } catch (\PDOException $e) {
-                throw new WriterException('Failed to send query', null, $e);
+                throw new WriterException('Failed to send query', 0, $e);
             }
         }
 
@@ -102,7 +102,7 @@ class PdoWriter implements Writer, FlushableWriter
             $this->pdo->commit();
         } catch (\PDOException $e) {
             $this->pdo->rollBack();
-            throw new WriterException('Failed to write to database', null, $e);
+            throw new WriterException('Failed to write to database', 0, $e);
         }
     }
 }
