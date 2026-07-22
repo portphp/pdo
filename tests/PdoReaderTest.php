@@ -4,7 +4,7 @@ namespace Port\Tests\Reader;
 
 use Port\Pdo\PdoReader;
 
-class PdoReaderTest extends \PHPUnit_Framework_TestCase
+class PdoReaderTest extends \PHPUnit\Framework\TestCase
 {
 	public function testCount()
 	{
@@ -15,7 +15,7 @@ class PdoReaderTest extends \PHPUnit_Framework_TestCase
 	{
 		$i=1;
 		foreach ($this->getReader() as $row) {
-			$this->assertInternalType('array', $row);
+			$this->assertIsArray( $row);
 			$this->assertEquals('user-'.$i, $row['username']);
 			$i++;
 		}
@@ -24,11 +24,18 @@ class PdoReaderTest extends \PHPUnit_Framework_TestCase
 	public function testReaderRewindWorksCorrectly()
 	{
 		$reader = $this->getReader();
+		$count1 = 0;
 		foreach ($reader as $row) {
+			$count1++;
 		}
 
+		$count2 = 0;
 		foreach ($reader as $row) {
+			$count2++;
 		}
+
+		$this->assertSame($count1, $count2);
+		$this->assertSame(100, $count1);
 	}
 
 	public function getConnection()

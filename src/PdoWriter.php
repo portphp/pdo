@@ -55,7 +55,7 @@ class PdoWriter implements Writer, FlushableWriter
         }
     }
 
-    public function prepare()
+    public function prepare(): void
     {
         $this->stack = [];
         $this->statement = null;
@@ -64,7 +64,7 @@ class PdoWriter implements Writer, FlushableWriter
     /**
      * {@inheritdoc}
      */
-    public function writeItem(array $item)
+    public function writeItem(array $item): void
     {
         if (null === $this->statement) {
             try {
@@ -75,21 +75,21 @@ class PdoWriter implements Writer, FlushableWriter
                     substr(str_repeat('?,', count($item)), 0, -1)
                 ));
             } catch (\PDOException $e) {
-                throw new WriterException('Failed to send query', null, $e);
+                throw new WriterException('Failed to send query', 0, $e);
             }
         }
 
         $this->stack[] = array_values($item);
     }
 
-    public function finish()
+    public function finish(): void
     {
         $this->flush();
 
-        return $this;
+        
     }
 
-    public function flush()
+    public function flush(): void
     {
         $this->pdo->beginTransaction();
 
@@ -102,7 +102,7 @@ class PdoWriter implements Writer, FlushableWriter
             $this->pdo->commit();
         } catch (\PDOException $e) {
             $this->pdo->rollBack();
-            throw new WriterException('Failed to write to database', null, $e);
+            throw new WriterException('Failed to write to database', 0, $e);
         }
     }
 }

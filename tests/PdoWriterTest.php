@@ -2,35 +2,36 @@
 
 namespace Port\Tests\Writer;
 
+use Port\Exception\WriterException;
 use Port\Pdo\PdoWriter;
+use PHPUnit\Framework\TestCase;
 
-class PdoWriterTest extends \PHPUnit_Framework_TestCase
+class PdoWriterTest extends TestCase
 {
     /**
      * @var \PDO
      */
     private $pdo;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->pdo = new \PDO('sqlite::memory:');
-        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION); //important
-        $this->pdo->exec('DROP TABLE IF EXISTS `example`');
-        $this->pdo->exec('CREATE TABLE `example` (a TEXT, b TEXT)');
+        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $this->pdo->exec('DROP TABLE IF EXISTS example');
+        $this->pdo->exec('CREATE TABLE example (a TEXT, b TEXT)');
     }
 
     public function testValidWriteItem()
     {
         $writer = new PdoWriter($this->pdo, 'example');
         $writer->prepare();
-        $writer->writeItem(array('a' => 'foo', 'b' => 'bar'));
+        $writer->writeItem(['a' => 'foo', 'b' => 'bar']);
         $writer->finish();
 
-        $stmnt = $this->pdo->query('SELECT * FROM `example`');
+        $stmnt = $this->pdo->query('SELECT * FROM example');
         $this->assertEquals(
-            array(array('a'=>'foo', 'b'=>'bar')),
-            $stmnt->fetchAll(\PDO::FETCH_ASSOC),
-            'database does not contain expected row'
+            [['a' => 'foo', 'b' => 'bar']],
+            $stmnt->fetchAll(\PDO::FETCH_ASSOC)
         );
     }
 
@@ -38,69 +39,48 @@ class PdoWriterTest extends \PHPUnit_Framework_TestCase
     {
         $writer = new PdoWriter($this->pdo, 'example');
         $writer->prepare();
-        $writer->writeItem(array('a' => 'foo', 'b' => 'bar'));
-        $writer->writeItem(array('a' => 'cat', 'b' => 'dog'));
-        $writer->writeItem(array('a' => 'ac', 'b' => 'dc'));
+        $writer->writeItem(['a' => 'foo', 'b' => 'bar']);
+        $writer->writeItem(['a' => 'cat', 'b' => 'dog']);
+        $writer->writeItem(['a' => 'ac', 'b' => 'dc']);
         $writer->finish();
 
-        $stmnt = $this->pdo->query('SELECT * FROM `example`');
+        $stmnt = $this->pdo->query('SELECT * FROM example');
         $this->assertEquals(
-            array(array('a'=>'foo', 'b'=>'bar'), array('a'=>'cat', 'b'=>'dog'), array('a'=>'ac', 'b'=>'dc')),
-            $stmnt->fetchAll(\PDO::FETCH_ASSOC),
-            'database does not contain all expected rows'
+            [
+                ['a' => 'foo', 'b' => 'bar'],
+                ['a' => 'cat', 'b' => 'dog'],
+                ['a' => 'ac', 'b' => 'dc'],
+            ],
+            $stmnt->fetchAll(\PDO::FETCH_ASSOC)
         );
     }
 
-    /**
-     * @expectedException \Port\Exception\WriterException
-     */
     public function testWriteTooManyValues()
     {
+        $this->expectException(WriterException::class);
+
         $writer = new PdoWriter($this->pdo, 'example');
         $writer->prepare();
-        $writer->writeItem(array('foo', 'bar', 'baz')); //expects two
+        $writer->writeItem(['a' => 'foo', 'b' => 'bar', 'c' => 'baz']);
         $writer->finish();
     }
 
-    /**
-     * @expectedException \Port\Exception\WriterException
-     */
     public function testWriteToNonexistentTable()
     {
+        $this->expectException(WriterException::class);
+
         $writer = new PdoWriter($this->pdo, 'foobar');
         $writer->prepare();
-        $writer->writeItem(array('foo', 'bar'));
+        $writer->writeItem(['a' => 'foo', 'b' => 'bar']);
         $writer->finish();
     }
 
-    /**
-     * Tests PDO instance with silent errors.
-     *
-     * @expectedException \Port\Exception\WriterException
-     */
-    public function testStatementCreateFailureWithNoException()
+    public function testRequiresExceptionErrorMode()
     {
+        $this->expectException(WriterException::class);
+        $this->expectExceptionMessage('Please set the pdo error mode to PDO::ERRMODE_EXCEPTION');
+
         $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_SILENT);
-
-        $writer = new PdoWriter($this->pdo, 'foob`ar');
-        $writer->prepare();
-        $writer->writeItem(array('foo', 'bar'));
-        $writer->finish();
-    }
-
-    /**
-     * Tests PDO instance with silent errors. First inert prepares the statement, second creates an exception.
-     *
-     * @expectedException \Port\Exception\WriterException
-     */
-    public function testWriteFailureWithNoException()
-    {
-        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_SILENT);
-
-        $writer = new PdoWriter($this->pdo, 'example');
-        $writer->prepare();
-        $writer->writeItem(array('foo', 'bar'));
-        $writer->writeItem(array('foo', 'bar', 'baz'));
-        $writer->finish();
+        new PdoWriter($this->pdo, 'example');
     }
 }
