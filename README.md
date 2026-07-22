@@ -1,9 +1,10 @@
 # Port PDO adapter
 
 [![Latest Version](https://img.shields.io/github/release/portphp/pdo.svg?style=flat-square)](https://github.com/portphp/pdo/releases)
-[![Build Status](https://travis-ci.org/portphp/pdo.svg)](https://travis-ci.org/portphp/pdo)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/portphp/pdo/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/portphp/pdo/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/portphp/pdo/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/portphp/pdo/?branch=master)
+[![CI](https://github.com/portphp/pdo/actions/workflows/test.yml/badge.svg?branch=master)](https://github.com/portphp/pdo/actions/workflows/test.yml)
+[![PHP Version](https://img.shields.io/packagist/php-v/portphp/pdo.svg?style=flat-square)](https://packagist.org/packages/portphp/pdo)
+
+**Requirements:** PHP ^8.2 (tested on 8.2–8.5). Requires `portphp/portphp` ^2.0.
 
 PDO adapter for [Port](https://github.com/portphp).
 
@@ -22,7 +23,7 @@ of the Composer documentation.
 
 ## Documentation
 
-Documentation is available at http://docs.portphp.org.
+Documentation is available at https://portphp.readthedocs.io.
 
 ## Issues and feature requests
 
@@ -33,11 +34,6 @@ Please report issues and request features at https://github.com/portphp/portphp/
 Contributions are very welcome. Please see [CONTRIBUTING.md](CONTRIBUTING.md) for
 details. Thanks to [everyone who has contributed](https://github.com/portphp/pdo/graphs/contributors)
 already.
-
-## Security
-
-If you discover any security-related issues, please contact us at
-[security@portphp.org](mailto:security@portphp.org).
 
 ## License
 
