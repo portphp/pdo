@@ -24,11 +24,18 @@ class PdoReaderTest extends \PHPUnit\Framework\TestCase
 	public function testReaderRewindWorksCorrectly()
 	{
 		$reader = $this->getReader();
+		$count1 = 0;
 		foreach ($reader as $row) {
+			$count1++;
 		}
 
+		$count2 = 0;
 		foreach ($reader as $row) {
+			$count2++;
 		}
+
+		$this->assertSame($count1, $count2);
+		$this->assertSame(100, $count1);
 	}
 
 	public function getConnection()
