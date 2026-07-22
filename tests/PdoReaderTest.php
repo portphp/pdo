@@ -15,7 +15,7 @@ class PdoReaderTest extends \PHPUnit\Framework\TestCase
 	{
 		$i=1;
 		foreach ($this->getReader() as $row) {
-			$this->assertInternalType('array', $row);
+			$this->assertIsArray( $row);
 			$this->assertEquals('user-'.$i, $row['username']);
 			$i++;
 		}
